@@ -12,10 +12,15 @@ type FormValues={
 
  const Form = () => {
     const form = useForm<FormValues>({
-      defaultValues: {
-        username: 'AlexI',
-        email: '',
-        channel: '',
+      // setting up default values from api or userend
+      defaultValues: async () => {
+        const response = await fetch("https://jsonplaceholder.typicode.com/users/1")
+        const data = await response.json();
+        return{
+          username: data.username,
+          email: data.email,
+          channel: ""
+        };
       }
     });
     //console.log(form);
