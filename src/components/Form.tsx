@@ -5,22 +5,26 @@ import {DevTool} from "@hookform/devtools";
 let renderCount = 0;
 //defining the types-typescript
 type FormValues={
-  username: string
-  email: string
-  channel: string
+  username: string;
+  email: string;
+  channel: string;
+  social: {
+    linkedin: string;
+    twitter: string;
+  };
 }
 
  const Form = () => {
     const form = useForm<FormValues>({
       // setting up default values from api or userend
-      defaultValues: async () => {
-        const response = await fetch("https://jsonplaceholder.typicode.com/users/1")
-        const data = await response.json();
-        return{
-          username: data.username,
-          email: data.email,
-          channel: ""
-        };
+      defaultValues:{
+          username: "Admin",
+          email: "admin@example.com",
+          channel: "React-Hook-Form",
+          social:{
+            linkedin:"",
+            twitter:"",
+          }
       }
     });
     //console.log(form);
@@ -80,6 +84,16 @@ type FormValues={
               message:"A Channel name is required"
           }})} />
           <p className="error">{errors.channel?.message}</p>
+          </div>
+
+          <div form-control>
+          <label htmlFor="twitter">Twitter</label>
+          <input type="text" id="twitter" {...register("social.twitter")} />
+          </div>
+
+          <div form-control>
+          <label htmlFor="twitter">Linkedin</label>
+          <input type="text" id="linkedin" {...register("social.twitter")} />
           </div>
   
           <button>Submit</button>
