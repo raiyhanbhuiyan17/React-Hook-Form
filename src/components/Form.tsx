@@ -11,7 +11,13 @@ type FormValues={
 }
 
  const Form = () => {
-    const form = useForm<FormValues>();
+    const form = useForm<FormValues>({
+      defaultValues: {
+        username: 'AlexI',
+        email: '',
+        channel: '',
+      }
+    });
     //console.log(form);
     const {register,control,handleSubmit,formState} = form;
     const {errors} = formState;
