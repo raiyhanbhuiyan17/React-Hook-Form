@@ -12,6 +12,7 @@ type FormValues={
     linkedin: string;
     twitter: string;
   };
+  phoneNumbers: string[];
 }
 
  const Form = () => {
@@ -24,7 +25,8 @@ type FormValues={
           social:{
             linkedin:"",
             twitter:"",
-          }
+          },
+          phoneNumbers:["",""],
       }
     });
     //console.log(form);
@@ -94,6 +96,16 @@ type FormValues={
           <div form-control>
           <label htmlFor="twitter">Linkedin</label>
           <input type="text" id="linkedin" {...register("social.twitter")} />
+          </div>
+          {/* . [dot] notation(phoneNumbers.0) is used for consistency in typescript we can't use bracket notation for this index phoneNumbers[0] */}
+          <div form-control>
+          <label htmlFor="primary-phone">Primary Phone</label>
+          <input type="text" id="primary-phone" {...register("phoneNumbers.0")} />
+          </div>
+
+          <div form-control>
+          <label htmlFor="secondary-phone">Secondary Phone</label>
+          <input type="text" id="secondary-phone" {...register("phoneNumbers.1")} />
           </div>
   
           <button>Submit</button>
