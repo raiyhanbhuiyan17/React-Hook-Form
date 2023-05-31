@@ -13,7 +13,7 @@ type FormValues={
     twitter: string;
   };
   phoneNumbers: string[];
-  //phNumbers: this is going to be array of objects
+  //phNumbers: this is going to be array of objects ;not array of strings
   phNumbers:{
     number: string;
   }[];
@@ -32,7 +32,7 @@ type FormValues={
           },
           phoneNumbers:["",""],
 
-          //to create - dynamic fileds
+          //to create - dynamic fileds; here, bydefault we've one object which is number
           phNumbers: [{number: ""}]
           //we need to specify this phNumbers field as an array of fileds.for that we invoke useFieldArray Hook
       }
@@ -40,8 +40,8 @@ type FormValues={
     //console.log(form);
     const {register,control,handleSubmit,formState} = form;
     const {errors} = formState;
-
-    const {fields,append,remove}= useFieldArray({name:"phNumbers",control})
+    //invoke field as an array of fields
+    const {fields,append,remove}= useFieldArray({name:"phNumbers",control});
 
     //const { onChange, onBlur, name, ref } = register("username");
 
@@ -126,7 +126,7 @@ type FormValues={
                 return (<div className="form-control" key={field.id}>
                   <input 
                   type="text" 
-                  {...register(`phNumbers.${index}.number`)}
+                  {...register(`phNumbers.${index}.number` as const)}
                   />
                   
                   {/* below condition is to check atleast one phone number; can't allow user to all the phone numbers */}
@@ -134,6 +134,7 @@ type FormValues={
                   
                 </div>);
               })}
+              {/* this-> append({number:""}) will add a new entry into our array -> phNumbers: [{number: ""}]  */}
               <button type='button' onClick={()=>append({number:""})}>Add Phone Number</button>
 
             </div>
