@@ -17,6 +17,7 @@ type FormValues={
   phNumbers:{
     number: string;
   }[];
+  age: number;
 }
 
  const Form = () => {
@@ -33,8 +34,10 @@ type FormValues={
           phoneNumbers:["",""],
 
           //to create - dynamic fileds; here, bydefault we've one object which is number
-          phNumbers: [{number: ""}]
+          phNumbers: [{number: ""}],
           //we need to specify this phNumbers field as an array of fileds.for that we invoke useFieldArray Hook
+
+          age : 0,
       }
     });
     //console.log(form);
@@ -139,6 +142,17 @@ type FormValues={
 
             </div>
 
+          </div>
+          <div form-control>
+            <label htmlFor="age">Age</label>
+            <input type="number" id="age" {...register("age",{
+            //valueAsNumber convert string to number; this is an option in the register form.
+            valueAsNumber: true,
+            required:{
+              value:true,
+              message:"Age is required"
+          }})} />
+          <p className="error">{errors.age?.message}</p>
           </div>
   
           <button>Submit</button>
