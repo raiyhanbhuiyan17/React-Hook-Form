@@ -43,12 +43,16 @@ type FormValues={
       }
     });
     //console.log(form);
-    const {register,control,handleSubmit,formState} = form;
+    const {register,control,handleSubmit,formState, watch} = form;
     const {errors} = formState;
     //invoke field as an array of fields
     const {fields,append,remove}= useFieldArray({name:"phNumbers",control});
 
     //const { onChange, onBlur, name, ref } = register("username");
+
+    //const watchedValue = watch("username");
+    // const watchedValue = watch(["username","email"]);
+    const watchForm = watch();
 
     const onSubmit = (data:FormValues) => {
       console.log("Form submitted",data);
@@ -59,6 +63,7 @@ type FormValues={
     return (
       <div>
         <h1>Employee Form({renderCount/2})</h1>
+        <h2>Watched Value:{JSON.stringify(watchForm)}</h2>
   
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
 
