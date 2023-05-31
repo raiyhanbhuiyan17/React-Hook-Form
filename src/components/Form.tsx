@@ -18,6 +18,7 @@ type FormValues={
     number: string;
   }[];
   age: number;
+  dob: Date;
 }
 
  const Form = () => {
@@ -38,6 +39,7 @@ type FormValues={
           //we need to specify this phNumbers field as an array of fileds.for that we invoke useFieldArray Hook
 
           age : 0,
+          dob: new Date(),
       }
     });
     //console.log(form);
@@ -143,6 +145,7 @@ type FormValues={
             </div>
 
           </div>
+
           <div form-control>
             <label htmlFor="age">Age</label>
             <input type="number" id="age" {...register("age",{
@@ -153,6 +156,17 @@ type FormValues={
               message:"Age is required"
           }})} />
           <p className="error">{errors.age?.message}</p>
+          </div>
+
+          <div form-control>
+            <label htmlFor="dob">Date of Birth</label>
+            <input type="date" id="dob" {...register("dob",{
+            //valueAsDate: true,
+            required:{
+              value:true,
+              message:"Date of Birth is required"
+          }})} />
+          <p className="error">{errors.dob?.message}</p>
           </div>
   
           <button>Submit</button>
