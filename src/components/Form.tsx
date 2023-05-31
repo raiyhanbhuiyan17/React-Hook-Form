@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm, useFieldArray} from "react-hook-form";
 import {DevTool} from "@hookform/devtools";
  
@@ -58,12 +59,19 @@ type FormValues={
       console.log("Form submitted",data);
     }
 
+    useEffect(()=>{
+      const subscription = watch((value)=> 
+        console.log(value));
+
+      return ()=>subscription.unsubscribe();
+    },[watch]);
+
    renderCount++;
 
     return (
       <div>
         <h1>Employee Form({renderCount/2})</h1>
-        <h2>Watched Value:{JSON.stringify(watchForm)}</h2>
+        {/* <h2>Watched Value:{JSON.stringify(watchForm)}</h2> */}
   
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
 
