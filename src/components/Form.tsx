@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useForm, useFieldArray} from "react-hook-form";
 import {DevTool} from "@hookform/devtools";
+
  
 
 let renderCount = 0;
@@ -44,7 +45,7 @@ type FormValues={
       }
     });
     //console.log(form);
-    const {register,control,handleSubmit,formState, watch} = form;
+    const {register,control,handleSubmit,formState, watch,getValues} = form;
     const {errors} = formState;
     //invoke field as an array of fields
     const {fields,append,remove}= useFieldArray({name:"phNumbers",control});
@@ -53,18 +54,22 @@ type FormValues={
 
     //const watchedValue = watch("username");
     // const watchedValue = watch(["username","email"]);
-    const watchForm = watch();
+    // const watchForm = watch();
 
     const onSubmit = (data:FormValues) => {
       console.log("Form submitted",data);
     }
 
-    useEffect(()=>{
-      const subscription = watch((value)=> 
-        console.log(value));
+    const handleGetValues = () => {
+      console.log("GetValues:", getValues(["username","channel"]));
+    };
 
-      return ()=>subscription.unsubscribe();
-    },[watch]);
+    // useEffect(()=>{
+    //   const subscription = watch((value)=> 
+    //     console.log(value));
+
+    //   return ()=>subscription.unsubscribe();
+    // },[watch]);
 
    renderCount++;
 
@@ -183,6 +188,8 @@ type FormValues={
           </div>
   
           <button>Submit</button>
+          <button type="button" onClick={handleGetValues}>GetValues</button>
+          
         </form>
         <DevTool control={control}/>
       </div>
