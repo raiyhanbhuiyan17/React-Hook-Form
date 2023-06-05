@@ -46,7 +46,8 @@ type FormValues={
     });
     //console.log(form);
     const {register,control,handleSubmit,formState, watch,getValues,setValue} = form;
-    const {errors,dirtyFields,touchedFields,isDirty,isValid} = formState;
+    const {errors,dirtyFields,touchedFields,isDirty,isValid,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount} = formState;
+    console.log(isSubmitting,isSubmitted,isSubmitSuccessful,submitCount);
     //dirty: if data in the field is modified||touched: if the field is touched or checked but no changes are made || isDirty:if data in the field is modified; say ture or false.
     console.log(dirtyFields,touchedFields,isDirty,isValid);
     //invoke field as an array of fields
