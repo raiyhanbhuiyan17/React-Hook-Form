@@ -45,7 +45,7 @@ type FormValues={
       }
     });
     //console.log(form);
-    const {register,control,handleSubmit,formState, watch,getValues,setValue} = form;
+    const {register,control,handleSubmit,formState, watch,getValues,setValue,reset} = form;
     const {errors,dirtyFields,touchedFields,isDirty,isValid,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount} = formState;
     console.log(isSubmitting,isSubmitted,isSubmitSuccessful,submitCount);
     //dirty: if data in the field is modified||touched: if the field is touched or checked but no changes are made || isDirty:if data in the field is modified; say ture or false.
@@ -70,6 +70,18 @@ type FormValues={
     const handleSetValues = () => {
       console.log("SetValues:", setValue("username","",{shouldValidate:true,shouldDirty:true,shouldTouch:true}));
     };
+
+    //reset the form values
+    // const handleReset = () => {
+    //   reset()
+    // };
+
+    //reset using useEffect hook
+    useEffect(() => {
+      if(isSubmitSuccessful){
+        reset();
+      }
+    },[isSubmitSuccessful,reset]);
 
     // useEffect(()=>{
     //   const subscription = watch((value)=> 
@@ -213,8 +225,12 @@ type FormValues={
           
           {/* disable submit button by cheking the condition wheteher is modified or valid */}
           <button disabled={!isDirty || !isValid || isSubmitting} >Submit</button>
+        
           <button type="button" onClick={handleGetValues}>GetValues</button>
           <button type="button" onClick={handleSetValues}>SetValues</button>
+          
+          {/* reset usning button  */}
+          {/* <button type="button" onClick={()=>reset()}>Reset</button> */}
           
         </form>
         <DevTool control={control}/>
