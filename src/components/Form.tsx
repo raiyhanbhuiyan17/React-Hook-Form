@@ -46,9 +46,9 @@ type FormValues={
     });
     //console.log(form);
     const {register,control,handleSubmit,formState, watch,getValues,setValue} = form;
-    const {errors,dirtyFields,touchedFields,isDirty} = formState;
+    const {errors,dirtyFields,touchedFields,isDirty,isValid} = formState;
     //dirty: if data in the field is modified||touched: if the field is touched or checked but no changes are made || isDirty:if data in the field is modified; say ture or false.
-    console.log(dirtyFields,touchedFields,isDirty);
+    console.log(dirtyFields,touchedFields,isDirty,isValid);
     //invoke field as an array of fields
     const {fields,append,remove}= useFieldArray({name:"phNumbers",control});
 
@@ -209,8 +209,9 @@ type FormValues={
           }})} />
           <p className="error">{errors.dob?.message}</p>
           </div>
-  
-          <button>Submit</button>
+          
+          {/* disable submit button by cheking the condition wheteher is modified or valid */}
+          <button disabled={!isDirty&&!isValid} >Submit</button>
           <button type="button" onClick={handleGetValues}>GetValues</button>
           <button type="button" onClick={handleSetValues}>SetValues</button>
           
