@@ -212,7 +212,7 @@ type FormValues={
           </div>
           
           {/* disable submit button by cheking the condition wheteher is modified or valid */}
-          <button disabled={!isDirty&&!isValid} >Submit</button>
+          <button disabled={!isDirty || !isValid || isSubmitting} >Submit</button>
           <button type="button" onClick={handleGetValues}>GetValues</button>
           <button type="button" onClick={handleSetValues}>SetValues</button>
           
