@@ -45,7 +45,7 @@ type FormValues={
       }
     });
     //console.log(form);
-    const {register,control,handleSubmit,formState, watch,getValues} = form;
+    const {register,control,handleSubmit,formState, watch,getValues,setValue} = form;
     const {errors} = formState;
     //invoke field as an array of fields
     const {fields,append,remove}= useFieldArray({name:"phNumbers",control});
@@ -62,6 +62,10 @@ type FormValues={
 
     const handleGetValues = () => {
       console.log("GetValues:", getValues(["username","channel"]));
+    };
+
+    const handleSetValues = () => {
+      console.log("SetValues:", setValue("username","",{shouldValidate:true,shouldDirty:true,shouldTouch:true}));
     };
 
     // useEffect(()=>{
@@ -189,6 +193,7 @@ type FormValues={
   
           <button>Submit</button>
           <button type="button" onClick={handleGetValues}>GetValues</button>
+          <button type="button" onClick={handleSetValues}>SetValues</button>
           
         </form>
         <DevTool control={control}/>
