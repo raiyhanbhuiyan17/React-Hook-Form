@@ -46,7 +46,9 @@ type FormValues={
     });
     //console.log(form);
     const {register,control,handleSubmit,formState, watch,getValues,setValue} = form;
-    const {errors} = formState;
+    const {errors,dirtyFields,touchedFields,isDirty} = formState;
+    //dirty: if data in the field is modified||touched: if the field is touched or checked but no changes are made || isDirty:if data in the field is modified; say ture or false.
+    console.log(dirtyFields,touchedFields,isDirty);
     //invoke field as an array of fields
     const {fields,append,remove}= useFieldArray({name:"phNumbers",control});
 
@@ -63,7 +65,7 @@ type FormValues={
     const handleGetValues = () => {
       console.log("GetValues:", getValues(["username","channel"]));
     };
-
+    //For validation we have to send as object
     const handleSetValues = () => {
       console.log("SetValues:", setValue("username","",{shouldValidate:true,shouldDirty:true,shouldTouch:true}));
     };
@@ -86,7 +88,8 @@ type FormValues={
 
           <div form-control>
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" {...register("username",{
+            {/* making username disabled by default. by using the keyword: disabled */}
+            <input type="text" disabled id="username" {...register("username",{
             required:{
               value:true,
               message:"Username is required"}
@@ -127,12 +130,23 @@ type FormValues={
 
           <div form-control>
             <label htmlFor="twitter">Twitter</label>
-            <input type="text" id="twitter" {...register("social.twitter")} />
+            {/* using disabled method inside the register method */}
+            <input 
+            type="text" 
+            id="twitter" {...register("social.twitter",{
+             disabled:true, 
+             required:"Enter a Twitter Account"
+            })} />
           </div>
 
           <div form-control>
-            <label htmlFor="twitter">Linkedin</label>
-            <input type="text" id="linkedin" {...register("social.twitter")} />
+            <label htmlFor="linkedin">Linkedin</label>
+            <input type="text" 
+            id="linkedin" {...register("social.linkedin",{
+              // using conditional disabled functionality
+              disabled:watch("channel")==="",
+              required:"Enter a linked account"
+            })} />
           </div>
           {/* . [dot] notation(phoneNumbers.0) is used for consistency in typescript we can't use bracket notation for this index phoneNumbers[0] */}
           <div className='form-control'>
