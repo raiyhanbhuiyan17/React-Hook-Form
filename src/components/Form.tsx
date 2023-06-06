@@ -42,7 +42,9 @@ type FormValues={
 
           age : 0,
           dob: new Date(),
-      }
+      },
+      mode:"onTouched", //onTouched: instant error popup; onBlur: blur a field; onChange: if any change is made it continuously starts validating, using this one is tricky this could impact on performance, every time is re-render.; all: do both onBlur & onChange
+      
     });
     //console.log(form);
     const {register,control,handleSubmit,formState, watch,getValues,setValue,reset} = form;
