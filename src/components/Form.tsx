@@ -131,6 +131,11 @@ type FormValues={
               notBlackListed:(fieldValue)=>{
                 return !fieldValue.endsWith("baddomain.com") || "This domain is not supported!"
               },
+              emailAvailability: async(fieldValue)=>{
+                const response = await fetch(`https://jsonplaceholder.typicode.com/users?email=${fieldValue}`);
+                const data = await response.json();
+                return data.length == 0 || "Email is already exists."
+              },
             }
             })} />
           <p className="error">{errors.email?.message}</p>
@@ -224,7 +229,8 @@ type FormValues={
           </div>
           
           {/* disable submit button by cheking the condition wheteher is modified or valid */}
-          <button disabled={!isDirty || !isValid || isSubmitting} >Submit</button>
+          {/* deleting !isValid due to check the api given email as api usually doesn't follow email rules sometimes */}
+          <button disabled={!isDirty|| isSubmitting} >Submit</button>
         
           <button type="button" onClick={handleGetValues}>GetValues</button>
           <button type="button" onClick={handleSetValues}>SetValues</button>
