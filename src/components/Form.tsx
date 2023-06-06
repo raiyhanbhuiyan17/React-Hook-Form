@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useForm, useFieldArray, FieldErrors} from "react-hook-form";
 import {DevTool} from "@hookform/devtools";
+import { channel } from "diagnostics_channel";
 
  
 
@@ -47,7 +48,7 @@ type FormValues={
       
     });
     //console.log(form);
-    const {register,control,handleSubmit,formState, watch,getValues,setValue,reset} = form;
+    const {register,control,handleSubmit,formState, watch,getValues,setValue,reset,trigger} = form;
     const {errors,dirtyFields,touchedFields,isDirty,isValid,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount} = formState;
     console.log(isSubmitting,isSubmitted,isSubmitSuccessful,submitCount);
     //dirty: if data in the field is modified||touched: if the field is touched or checked but no changes are made || isDirty:if data in the field is modified; say ture or false.
@@ -239,6 +240,13 @@ type FormValues={
           
           {/* reset usning button  */}
           {/* <button type="button" onClick={()=>reset()}>Reset</button> */}
+           
+           {/* this trigger all the fields. */}
+           {/* <button type="button" onClick={()=>trigger()}>Validate</button> */}
+
+           {/* this trigger only the parameter we've passed */}
+           <button type="button" onClick={()=>trigger("channel")}>Validate</button>
+
           
         </form>
         <DevTool control={control}/>
